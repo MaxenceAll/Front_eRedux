@@ -5,14 +5,14 @@ export const STYLEDButton = styled.button`
   height: ${(props) => props.height || ""};
   border-radius: 10px;
   color: white;
-  background-color: black;
+  background-color: orange;
 
   cursor: pointer;
 
   transition: all 0.3s ease;
 
   &:hover {
-    color: black;
+    color: orange;
     background-color: white;
 
     transform: translateY(-3px);

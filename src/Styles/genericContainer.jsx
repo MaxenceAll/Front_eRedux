@@ -39,7 +39,7 @@ export const STYLEDContainerBox = styled.div`
   padding:2%;
   animation: ${appearAnimation} 0.5s linear;
 
-    background-color: lightgray;
+    background-color: aliceblue;
 
   //2
   // box-shadow: inset 9.91px 9.91px 15px black,

@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import fruitsImage from '../assets/background/fruits.jpg'
 
 export default function MainLayout() {
   return (
@@ -23,8 +24,11 @@ const DIV_AppContainer = styled.div`
   min-width: 100dvw;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Set the minimum height of the container to 100% of the viewport height */
-  `;
+  min-height: 100vh; 
+  background-image: url(${fruitsImage}); /* Set the imported image as the background */
+  background-size: contain; /* Adjust the background size to cover the container */
+`;
+
 
 const FOOTER_Container = styled.footer`
   margin-top: auto;
