@@ -5,7 +5,7 @@ import { STYLEDButton } from '../../Styles/genericButton';
 import { Link } from 'react-router-dom';
 
 function ProductList({ data }) {
-    console.log(data);
+    // console.log(data);
     return (
         <DIV_Card_Container>
             {data.map(product => (
@@ -14,7 +14,7 @@ function ProductList({ data }) {
                         <img src={product.img_src} alt={product.name} className="card-img" />
                     </DIV_Card_img>
                     <DIV_Card_body>
-                        <p><b>{product.name}</b> €{product.price}/pièce</p>
+                        <>{product.name}€{product.price}/pièce</>
                     </DIV_Card_body>
                     <Link to={`/produit/${product.id}`}>
                         <STYLEDButton>Voir produit</STYLEDButton>
@@ -55,8 +55,8 @@ const Card = styled.div`
 
 const DIV_Card_img = styled.div`
   .card-img {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     object-fit: cover;
     transition: transform 0.3s ease;    
     &:hover {
@@ -69,5 +69,5 @@ const DIV_Card_body = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 `;

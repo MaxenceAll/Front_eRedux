@@ -26,11 +26,11 @@ function ProductDetails() {
         <STYLEDContainer>
             <STYLEDContainerBox>
                 <DIV_ProductDetails_Container>
+                    <img className="img" src={selectedProduct?.img_src} alt={selectedProduct?.name} />
                     <h2><b>Nom du produit:</b> {selectedProduct?.name}</h2>
                     <p><b>Prix du produit:</b> {selectedProduct?.price}€/unité</p>
                     <p><b>Type du produit:</b> {selectedProduct?.type}</p>
                     <p><b>Identifiant du produit :</b> {selectedProduct?.id}</p>
-                    <img className="img" src={selectedProduct?.img_src} alt={selectedProduct?.name} />
                     <STYLEDButton onClick={()=> handleAddToCart()} width="50%" height="100px"> <FaCartPlus /> Ajouter au panier <FaCartPlus /> </STYLEDButton>
                 </DIV_ProductDetails_Container>
             </STYLEDContainerBox>

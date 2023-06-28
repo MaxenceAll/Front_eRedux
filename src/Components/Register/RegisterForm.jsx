@@ -62,6 +62,7 @@ const RegisterForm = () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.email}
+                        autoComplete="off"
                     />
                     {formik.touched.email && formik.errors.email && (
                         <STYLEDErrorMessage>{formik.errors.email}</STYLEDErrorMessage>
@@ -73,6 +74,7 @@ const RegisterForm = () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.password}
+                        autoComplete="off"
                     />
                     {formik.touched.password && formik.errors.password && (
                         <STYLEDErrorMessage>{formik.errors.password}</STYLEDErrorMessage>
@@ -84,6 +86,7 @@ const RegisterForm = () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.confirmPassword}
+                        autoComplete="off"
                     />
                     {formik.touched.confirmPassword && formik.errors.confirmPassword && (
                         <STYLEDErrorMessage>{formik.errors.confirmPassword}</STYLEDErrorMessage>

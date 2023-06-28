@@ -31,9 +31,12 @@ function Header() {
                 <span>
                     <SearchBar />
                 </span>
-                <span>
+                <NavLink to="/cart" className={({ isActive }) => isActive ? "active-link" : null}>
+                    <DIV_HeaderLinkIcon>
                     <FaBagShopping />
-                </span>
+                    </DIV_HeaderLinkIcon>
+                </NavLink>
+
             </DIV_NavBarContainer>
         </DIV_Header_Container>
     )

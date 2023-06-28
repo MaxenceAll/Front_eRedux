@@ -14,6 +14,8 @@ import ProductDetails from "./Components/Home/ProductDetails";
 import usePageTitle from "./Hooks/usePageTitle";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PrivateRoutes from "./Layouts/PrivateRoutes";
+import Cart from "./Components/Cart/Cart";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +24,10 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
       <Route path="produit/:id" element={<ProductDetails />}/>
+
+      <Route element={<PrivateRoutes />}>
+        <Route path="/cart" element={<Cart />} />
+      </Route>
 
       <Route path="*" element={<NotFound />} />
     </Route>
