@@ -1,36 +1,49 @@
 import React, { createContext, useState } from 'react';
 
-// Create the CartContext
 export const CartContext = createContext();
 
-// Create the CartContext Provider
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
 
-    // Update the addToCart function to accept a quantity parameter
     const addToCart = (item, quantity) => {
         setCart(prevCart => [...prevCart, { item, quantity }]);
     };
 
-    // Remove item from the cart
     const removeFromCart = (itemId) => {
-        setCart(prevCart => prevCart.filter(item => item.id !== itemId));
+        setCart(prevCart => prevCart.filter(item => item.item.id !== itemId));
     };
 
-    // Clear the cart
+    const updateCartItemQuantity = (itemId, newQuantity) => {
+        setCart(prevCart =>
+            prevCart.map(item => {
+                if (item.item.id === itemId) {
+                    return {
+                        ...item,
+                        quantity: newQuantity,
+                    };
+                }
+                return item;
+            })
+        );
+    };
+
     const clearCart = () => {
         setCart([]);
     };
 
-    // Create the context value
+    const getTotalItemCount = () => {
+        return cart.reduce((totalCount, item) => totalCount + item.quantity, 0);
+    };
+
     const contextValue = {
         cart,
         addToCart,
         removeFromCart,
-        clearCart
+        updateCartItemQuantity,
+        clearCart,
+        getTotalItemCount,
     };
 
-    // Provide the context value to the children components
     return (
         <CartContext.Provider value={contextValue}>
             {children}

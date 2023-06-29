@@ -1,8 +1,5 @@
 import React from 'react'
 
-
-// need a search bar to search for a specific product
-
 function SearchBar() {
   return (
     <div>

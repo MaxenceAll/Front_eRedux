@@ -25,8 +25,14 @@ const DIV_AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh; 
-  background-image: url(${fruitsImage}); /* Set the imported image as the background */
-  background-size: contain; /* Adjust the background size to cover the container */
+  background-image: url(${fruitsImage});
+  background-size: contain;
+
+  header {
+    position: sticky;
+      top: 0;
+      z-index: 999;  
+  }
 `;
 
 

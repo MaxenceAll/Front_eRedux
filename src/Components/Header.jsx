@@ -3,8 +3,13 @@ import { FaCartShopping, FaBagShopping } from "react-icons/fa6";
 import { HiUser, HiUserAdd } from "react-icons/hi";
 import SearchBar from "./Header/SearchBar";
 import { NavLink } from "react-router-dom";
+import { CartContext } from "../Contexts/CartContext";
+import { useContext } from "react";
 
 function Header() {
+
+    const { getTotalItemCount } = useContext(CartContext);
+
     return (
         <DIV_Header_Container>
             <div>
@@ -33,9 +38,10 @@ function Header() {
                 </span>
                 <NavLink to="/cart" className={({ isActive }) => isActive ? "active-link" : null}>
                     <DIV_HeaderLinkIcon>
-                    <FaBagShopping />
+                        <FaBagShopping />
                     </DIV_HeaderLinkIcon>
-                </NavLink>
+                    <SPAN_CartItemCount>{getTotalItemCount()}</SPAN_CartItemCount>
+                </NavLink>                
 
             </DIV_NavBarContainer>
         </DIV_Header_Container>
@@ -45,20 +51,20 @@ function Header() {
 export default Header
 
 const DIV_Header_Container = styled.div`
-  padding-left: 15%;
-  padding-right: 15%;
-  background-color: orange;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 65px;
-  .active-link {
+    padding-left: 15%;
+    padding-right: 15%;
+    background-color: orange;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 65px;
+    .active-link {
     /* text-decoration: underline; */
     background-color: yellow;
     color: red;
     border-radius: 4px;
     border: 2px solid gray;
-}
+    }
 `;
 
 const SPAN_NomApp = styled.span`
@@ -82,4 +88,16 @@ const DIV_NavBarContainer = styled.div`
 
 const DIV_HeaderLinkIcon = styled.div`
   text-align: center;
+    font-size: 1.5rem;
+`;
+
+const SPAN_CartItemCount = styled.span`
+  position: relative;
+  top: -8px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 5px;
 `;

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { STYLEDContainer, STYLEDContainerBox } from '../../Styles/genericContainer';
 import fakeData from '../../Database/FakeData';
 import { styled } from 'styled-components';
@@ -8,10 +8,13 @@ import { FaCartPlus } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import { STYLEDInput } from '../../Styles/genericInput';
 import { CartContext } from '../../Contexts/CartContext';
+import { currencyFormat } from '../../Tools/currencyFormat';
 
 function ProductDetails() {
 
     const { addToCart } = useContext(CartContext);
+
+    const navigate = useNavigate();
 
     const { id } = useParams();
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -24,7 +27,7 @@ function ProductDetails() {
     }, [id]);
 
     const handleAddToCart = () => {
-        console.log(`Produit ajouté au panier : ${selectedProduct?.id} - Quantité : ${quantity}`);
+        console.log(`Produit ajouté au panier : ${selectedProduct?.name}(${selectedProduct?.id}) - Quantité : ${quantity}`);
         toast.success(`${selectedProduct?.name} (${quantity} unités) ajouté au panier.`);
         addToCart(selectedProduct, quantity);
     }
@@ -38,13 +41,18 @@ function ProductDetails() {
         }
     }
 
+    const handleGoBack = () => {
+        navigate(-1);
+    }
+
     return (
         <STYLEDContainer>
             <STYLEDContainerBox>
                 <DIV_ProductDetails_Container>
+                    <STYLEDButton onClick={handleGoBack}>Retour</STYLEDButton>
                     <img className="img" src={selectedProduct?.img_src} alt={selectedProduct?.name} />
                     <h2><b>Nom du produit:</b> {selectedProduct?.name}</h2>
-                    <p><b>Prix du produit:</b> {selectedProduct?.price}€/unité</p>
+                    <p><b>Prix du produit:</b> {currencyFormat(selectedProduct?.price)}</p>
                     <p><b>Type du produit:</b> {selectedProduct?.type}</p>
                     <p><b>Identifiant du produit :</b> {selectedProduct?.id}</p>
                     <h2 htmlFor="quantity">Quantité :</h2>

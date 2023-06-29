@@ -5,6 +5,7 @@ import fakeData from '../Database/FakeData';
 import { STYLEDContainer, STYLEDContainerBox } from '../Styles/genericContainer';
 import { STYLEDButton } from '../Styles/genericButton';
 import { Link } from 'react-router-dom';
+import { currencyFormat } from '../Tools/currencyFormat';
 
 function Home() {
   usePageTitle(`E-Redux | Page d'acceuil`);
@@ -59,7 +60,7 @@ function Home() {
                   <img src={product.img_src} alt={product.name} className="card-img" />
                 </DIV_Card_img>
                 <DIV_Card_body>
-                  {product.name}€{product.price}/pièce
+                  <b>{product.name}</b>{currencyFormat(product.price)}
                 </DIV_Card_body>
                 <Link to={`/produit/${product.id}`}>
                   <STYLEDButton>Voir produit</STYLEDButton>
