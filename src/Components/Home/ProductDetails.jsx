@@ -9,10 +9,11 @@ import { toast } from 'react-toastify';
 import { STYLEDInput } from '../../Styles/genericInput';
 import { CartContext } from '../../Contexts/CartContext';
 import { currencyFormat } from '../../Tools/currencyFormat';
+import fetcher from '../../Helpers/fetcher';
 
 function ProductDetails() {
 
-    const { addToCart} = useContext(CartContext);
+    const { addToCart } = useContext(CartContext);
 
     const navigate = useNavigate();
 
@@ -21,9 +22,19 @@ function ProductDetails() {
     const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
-        const product = fakeData.find(item => item.id === parseInt(id));
-        setSelectedProduct(product);
-        document.title = `E-Redux | Consultation de : ${product?.name}`;
+        const getData = async () => {
+            try {
+                const response = await fetcher.get(`/api/v1/products/${id}`);
+                console.log(response);
+                setSelectedProduct(response);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getData();
+        // const product = fakeData.find(item => item.id === parseInt(id));
+        // setSelectedProduct(product);
+        // document.title = `E-Redux | Consultation de : ${product?.name}`;
     }, [id]);
 
     const handleAddToCart = () => {

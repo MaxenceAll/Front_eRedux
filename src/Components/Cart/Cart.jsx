@@ -34,7 +34,7 @@ function Cart() {
 
     const calculateTotal = () => {
         const subtotal = calculateSubtotal();
-        const deliveryCost = Number(import.meta.env.VITE_APP_LIVRAISON_PRICE);
+        const deliveryCost = import.meta.env.VITE_APP_LIVRAISON_PRICE;
         return subtotal + deliveryCost;
     };
 
@@ -53,6 +53,7 @@ function Cart() {
                                     <th>Nom</th>
                                     <th>Prix</th>
                                     <th>Quantité(s)</th>
+                                    <th>Total</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -69,6 +70,7 @@ function Cart() {
                                                 <STYLEDButton onClick={() => handleQuantityIncrease(cartItem.item.id)}>+</STYLEDButton>
                                             </DIV_Quantity_Container>
                                         </td>
+                                        <td>{currencyFormat(cartItem.item.price * cartItem.quantity)}</td>
                                         <td>
                                             <STYLEDButton background="red" onClick={() => handleRemoveFromCart(cartItem.item.id, cartItem.item.name)}>Supprimer<MdOutlineRemoveCircleOutline /></STYLEDButton>
                                         </td>
@@ -98,7 +100,7 @@ function Cart() {
                             </tr>
                             <tr>
                                 <td>Livraison:</td>
-                                <td>{currencyFormat(Number(import.meta.env.VITE_APP_LIVRAISON_PRICE))}</td>
+                                <td>{currencyFormat(import.meta.env.VITE_APP_LIVRAISON_PRICE)}</td>
                             </tr>
                             <tr>
                                 <td>Total:</td>

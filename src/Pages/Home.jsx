@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import usePageTitle from '../Hooks/usePageTitle';
 import styled from 'styled-components';
 import fakeData from '../Database/FakeData';
@@ -6,12 +6,28 @@ import { STYLEDContainer, STYLEDContainerBox } from '../Styles/genericContainer'
 import { STYLEDButton } from '../Styles/genericButton';
 import { Link } from 'react-router-dom';
 import { currencyFormat } from '../Tools/currencyFormat';
+import fetcher from '../Helpers/fetcher';
 
 function Home() {
+
   usePageTitle(`E-Redux | Page d'acceuil`);
 
+  const [products, setProducts] = useState([]);
+  
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await fetcher.get(`/api/v1/products`);
+        setProducts(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };  
+    getData();
+  }, []);
+
   const [selectedType, setSelectedType] = useState(null);
-  const types = [...new Set(fakeData.map(item => item.type))];
+  const types = [...new Set(products.map(item => item.type))];
 
   const handleCheckboxChange = (type) => {
     if (selectedType === type) {
@@ -22,8 +38,8 @@ function Home() {
   };
 
   const filteredData = selectedType
-    ? fakeData.filter(product => product.type === selectedType)
-    : fakeData;
+    ? products.filter(product => product.type === selectedType)
+    : products;
 
   return (
     <STYLEDContainer>
