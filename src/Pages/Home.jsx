@@ -13,16 +13,18 @@ function Home() {
   usePageTitle(`E-Redux | Page d'acceuil`);
 
   const [products, setProducts] = useState([]);
-  
+
   useEffect(() => {
     const getData = async () => {
       try {
         const response = await fetcher.get(`/api/v1/products`);
-        setProducts(response);
+        if (response) {
+          setProducts(response);
+        }
       } catch (error) {
         console.log(error);
       }
-    };  
+    };
     getData();
   }, []);
 

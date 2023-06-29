@@ -25,8 +25,10 @@ function ProductDetails() {
         const getData = async () => {
             try {
                 const response = await fetcher.get(`/api/v1/products/${id}`);
-                console.log(response);
-                setSelectedProduct(response);
+                if(response){
+                    setSelectedProduct(response);                    
+                    document.title = `E-Redux | Consultation de : ${response?.name}`;
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -35,7 +37,6 @@ function ProductDetails() {
         // const product = fakeData.find(item => item.id === parseInt(id));
         // setSelectedProduct(product);
         // document.title = `E-Redux | Consultation de : ${product?.name}`;
-        document.title = `E-Redux | Consultation de : ${response?.name}`;
     }, [id]);
 
     const handleAddToCart = () => {
