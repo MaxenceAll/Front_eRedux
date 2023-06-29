@@ -35,6 +35,7 @@ function ProductDetails() {
         // const product = fakeData.find(item => item.id === parseInt(id));
         // setSelectedProduct(product);
         // document.title = `E-Redux | Consultation de : ${product?.name}`;
+        document.title = `E-Redux | Consultation de : ${response?.name}`;
     }, [id]);
 
     const handleAddToCart = () => {
