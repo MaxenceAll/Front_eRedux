@@ -96,7 +96,7 @@ const SPAN_CartItemCount = styled.span`
   top: -8px;
   font-size: 1rem;
   font-weight: bold;
-  background-color: red;
+  background-color: green;
   color: white;
   border-radius: 50%;
   padding: 2px 5px;

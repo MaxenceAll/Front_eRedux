@@ -12,7 +12,7 @@ import { currencyFormat } from '../../Tools/currencyFormat';
 
 function ProductDetails() {
 
-    const { addToCart } = useContext(CartContext);
+    const { addToCart} = useContext(CartContext);
 
     const navigate = useNavigate();
 
@@ -27,7 +27,6 @@ function ProductDetails() {
     }, [id]);
 
     const handleAddToCart = () => {
-        console.log(`Produit ajouté au panier : ${selectedProduct?.name}(${selectedProduct?.id}) - Quantité : ${quantity}`);
         toast.success(`${selectedProduct?.name} (${quantity} unités) ajouté au panier.`);
         addToCart(selectedProduct, quantity);
     }
@@ -49,7 +48,6 @@ function ProductDetails() {
         <STYLEDContainer>
             <STYLEDContainerBox>
                 <DIV_ProductDetails_Container>
-                    <STYLEDButton onClick={handleGoBack}>Retour</STYLEDButton>
                     <img className="img" src={selectedProduct?.img_src} alt={selectedProduct?.name} />
                     <h2><b>Nom du produit:</b> {selectedProduct?.name}</h2>
                     <p><b>Prix du produit:</b> {currencyFormat(selectedProduct?.price)}</p>
@@ -75,6 +73,7 @@ function ProductDetails() {
                         <FaCartPlus /> Ajouter au panier <FaCartPlus />
                     </STYLEDButton>
                 </DIV_ProductDetails_Container>
+                <STYLEDButton onClick={handleGoBack}>Retour</STYLEDButton>
             </STYLEDContainerBox>
         </STYLEDContainer>
     );
@@ -92,7 +91,7 @@ min-height: 250px;
 gap: 2%;
 
 .img {
-width: 50%;
+width: 25%;
 height: auto;
 object-fit: cover;
 }
