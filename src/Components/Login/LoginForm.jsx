@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import styled from 'styled-components';
 import { VscAccount } from "react-icons/vsc";
@@ -8,9 +8,16 @@ import { STYLEDButton } from '../../Styles/genericButton';
 import { STYLEDForm } from '../../Styles/genericForm';
 import { STYLEDContainer, STYLEDContainerBox } from '../../Styles/genericContainer';
 
+import fetcher from '../../Helpers/fetcher';
+import { toast } from 'react-toastify';
+
 
 // LoginForm component
 const LoginForm = () => {
+
+    const [response, setResponse] = useState(null); // State to store the API response
+    console.log(response);
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -33,9 +40,17 @@ const LoginForm = () => {
 
             return errors;
         },
-        onSubmit: values => {
+        onSubmit: async(values) => {
             // ICI on récup les valeurs du formulaire
             console.log(values);
+            try {
+                const resp = await fetcher.post(`/api/v1/auth/login`, values);
+                setResponse(resp); // Store the API response in the state
+                console.log(resp); // Log the response
+            } catch (error) {
+                console.log(error);
+                toast.error('Une erreur est survenue lors de la connexion');
+            }
         },
     });
 
@@ -69,7 +84,7 @@ const LoginForm = () => {
                     {formik.touched.password && formik.errors.password && (
                         <STYLEDErrorMessage>{formik.errors.password}</STYLEDErrorMessage>
                     )}
-                    <STYLEDButton type="submit">Se connecter</STYLEDButton>
+                    <STYLEDButton   type="submit">Se connecter</STYLEDButton>
                 </STYLEDForm>
             </STYLEDContainerBox>
         </STYLEDContainer>

@@ -12,22 +12,14 @@ export const STYLEDButton = styled.button`
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
-
-  /* color: white; */
-  /* background: rgba(255, 165, 0, 0.7); */
-
   color: ${(props) => props.color || "white"};
-  background: ${(props) => props.background || "rgba(255, 165, 0, 0.7)"};
 
-  font-size: ${(props) => props.fontSize || "1rem"};
-
-
+  background-color: orange;
+  
   box-shadow: 0 6px 4px rgba(0, 0, 0, 0.5);
-
   &:hover {
     transform: translateY(-3px);
   }
-
   &:disabled {
     cursor: not-allowed;
     background: rgba(128, 128, 128, 0.3);

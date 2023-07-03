@@ -40,7 +40,7 @@ function ProductDetails() {
     }, [id]);
 
     const handleAddToCart = () => {
-        toast.success(`${selectedProduct?.name} (${quantity} unités) ajouté au panier.`);
+        toast.success(`${selectedProduct?.name} (${quantity} unités) ajouté au panier. 🛒`);
         addToCart(selectedProduct, quantity);
     }
 
@@ -69,7 +69,7 @@ function ProductDetails() {
                     <h2 htmlFor="quantity">Quantité :</h2>
                     <div className="quantity-container">
                         <div className="quantity-input">
-                            <STYLEDButton onClick={decrementQuantity}>-</STYLEDButton>
+                            <STYLEDButton   onClick={decrementQuantity}>-</STYLEDButton>
                             <STYLEDInput
                                 type="number"
                                 id="quantity"
@@ -79,14 +79,14 @@ function ProductDetails() {
                                 step={1}
                                 onChange={(e) => setQuantity(parseInt(e.target.value))}
                             />
-                            <STYLEDButton onClick={incrementQuantity}>+</STYLEDButton>
+                            <STYLEDButton   onClick={incrementQuantity}>+</STYLEDButton>
                         </div>
                     </div>
-                    <STYLEDButton onClick={handleAddToCart} width="50%" height="100px">
+                    <STYLEDButton   onClick={handleAddToCart} width="50%" height="100px">
                         <FaCartPlus /> Ajouter au panier <FaCartPlus />
                     </STYLEDButton>
                 </DIV_ProductDetails_Container>
-                <STYLEDButton onClick={handleGoBack}>Retour</STYLEDButton>
+                <STYLEDButton   onClick={handleGoBack}>Retour</STYLEDButton>
             </STYLEDContainerBox>
         </STYLEDContainer>
     );

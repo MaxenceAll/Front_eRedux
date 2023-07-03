@@ -7,7 +7,7 @@ import { STYLEDButton } from '../../Styles/genericButton';
 import { MdOutlineRemoveCircleOutline } from "react-icons/md";
 import { toast } from 'react-toastify';
 
-function Cart() {
+function CartElements() {
     const { cart, removeFromCart, updateCartItemQuantity, getTotalItemCount, increaseQuantity, decreaseQuantity } = useContext(CartContext);
 
     const handleRemoveFromCart = (itemId, itemName) => {
@@ -72,7 +72,7 @@ function Cart() {
                                         </td>
                                         <td>{currencyFormat(cartItem.item.price * cartItem.quantity)}</td>
                                         <td>
-                                            <STYLEDButton background="red" onClick={() => handleRemoveFromCart(cartItem.item.id, cartItem.item.name)}>Supprimer<MdOutlineRemoveCircleOutline /></STYLEDButton>
+                                            <STYLEDButton style={{ backgroundColor: "red" }}  onClick={() => handleRemoveFromCart(cartItem.item.id, cartItem.item.name)}>Supprimer<MdOutlineRemoveCircleOutline /></STYLEDButton>
                                         </td>
                                     </tr>
                                 ))}
@@ -108,14 +108,14 @@ function Cart() {
                             </tr>
                         </tbody>
                     </table>
-                    <STYLEDButton background="green">Commander</STYLEDButton>
+                    <STYLEDButton style={{ backgroundColor: "green" }}>Commander</STYLEDButton>
                 </DIV_Payout_Container>
             </DIV_ContainerBox>
         </STYLEDContainer>
     );
 }
 
-export default Cart;
+export default CartElements;
 
 const DIV_ContainerBox = styled.div`
     display: flex;

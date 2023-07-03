@@ -6,7 +6,7 @@ import Loader from "../Components/Tools/Loader";
 
 export default function PrivateRoutes({ children, ...rest }) {
 
-  const [auth, setAuth] = useState(true);
+  const [auth, setAuth] = useState(false);
 
   if (!auth) {
     toast.warning("Il faut être identifié pour accèder à cette page !");

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import styled from 'styled-components';
 import { HiOutlineUserAdd } from 'react-icons/hi';
@@ -7,8 +7,15 @@ import { STYLEDForm } from '../../Styles/genericForm';
 import { STYLEDInput } from '../../Styles/genericInput';
 import { STYLEDErrorMessage } from '../../Styles/genericParagraphError';
 import { STYLEDButton } from '../../Styles/genericButton';
+import { toast } from 'react-toastify';
+import fetcher from '../../Helpers/fetcher';
+
 
 const RegisterForm = () => {
+    
+    const [response, setResponse] = useState(null); // State to store the API response
+    console.log(response);
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -41,9 +48,23 @@ const RegisterForm = () => {
 
             return errors;
         },
-        onSubmit: values => {
-            // Handle form submission here
-            console.log(values);
+        onSubmit: async (values) => {
+            // Exclude confirmPassword field from the values object
+            const { confirmPassword, ...requestData } = values;
+            console.log(requestData);
+            try {
+                const resp = await fetcher.post(`/api/v1/auth/register`, requestData);
+                if (resp.success) {
+                    toast.success('Votre compte a bien été créé');
+                    setResponse(resp);
+                    console.log(resp);
+                } else{
+                    toast.error('Une erreur est survenue lors de la création de votre compte');
+                }
+            } catch (error) {
+                console.log(error);
+                toast.error('Une erreur est survenue lors de la création de votre compte');
+            }
         },
     });
 
@@ -51,10 +72,10 @@ const RegisterForm = () => {
         <STYLEDContainer>
             <STYLEDContainerBox>
                 <STYLEDForm onSubmit={formik.handleSubmit}>
-                <div style={{ fontSize: '100px' }}>
-                    <HiOutlineUserAdd />
-                </div>
-                <h1>S'enregistrer</h1>
+                    <div style={{ fontSize: '100px' }}>
+                        <HiOutlineUserAdd />
+                    </div>
+                    <h1>S'enregistrer</h1>
                     <STYLEDInput
                         type="email"
                         name="email"
