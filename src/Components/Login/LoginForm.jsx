@@ -40,6 +40,7 @@ const LoginForm = () => {
         onSubmit: async (values) => {
             try {
                 const resp = await fetcher.post(`/api/v1/auth/login`, values);
+                console.log(resp)
                 if (resp.result) {
                     toast.success('Vous êtes connecté');
                     login(resp.access_token, resp.email);
