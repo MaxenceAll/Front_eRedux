@@ -69,7 +69,7 @@ const RegisterForm = () => {
     });
 
     return (
-        <STYLEDContainer>
+        <STYLEDContainer> 
             <STYLEDContainerBox>
                 <STYLEDForm onSubmit={formik.handleSubmit}>
                     <div style={{ fontSize: '100px' }}>
