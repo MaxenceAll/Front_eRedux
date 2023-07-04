@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useFormik } from 'formik';
 import styled from 'styled-components';
 import { HiOutlineUserAdd } from 'react-icons/hi';
@@ -9,12 +9,12 @@ import { STYLEDErrorMessage } from '../../Styles/genericParagraphError';
 import { STYLEDButton } from '../../Styles/genericButton';
 import { toast } from 'react-toastify';
 import fetcher from '../../Helpers/fetcher';
+import { AuthContext } from '../../Contexts/AuthContext';
 
 
 const RegisterForm = () => {
-    
-    const [response, setResponse] = useState(null); // State to store the API response
-    console.log(response);
+
+    const { login } = useContext(AuthContext);
 
     const formik = useFormik({
         initialValues: {
@@ -47,23 +47,21 @@ const RegisterForm = () => {
             }
 
             return errors;
-        },
+        }, 
         onSubmit: async (values) => {
-            // Exclude confirmPassword field from the values object
+            // Pour virer le confirmPassword de l'objet
             const { confirmPassword, ...requestData } = values;
-            console.log(requestData);
             try {
                 const resp = await fetcher.post(`/api/v1/auth/register`, requestData);
-                if (resp.success) {
-                    toast.success('Votre compte a bien été créé');
-                    setResponse(resp);
-                    console.log(resp);
+                if (resp.result) {
+                    toast.success('Votre compte a bien été crée');
+                    login(resp.access_token, resp.email);
                 } else{
-                    toast.error('Une erreur est survenue lors de la création de votre compte');
+                    toast.error(`Une erreur est survenue lors de la création de votre compte : ${resp.error} (${resp.message}))`);
                 }
             } catch (error) {
                 console.log(error);
-                toast.error('Une erreur est survenue lors de la création de votre compte');
+                toast.error(`Une erreur est survenue lors de la création de votre compte : ${resp.error} (${resp.message}))`);
             }
         },
     });

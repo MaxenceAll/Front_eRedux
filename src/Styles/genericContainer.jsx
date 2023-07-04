@@ -13,6 +13,7 @@ export const STYLEDContainer = styled.div`
   margin-inline-end: 0px;
   padding-inline-start: 0px;
   padding: 2%;
+  text-align: center;
 `;
 
 const appearAnimation = keyframes`

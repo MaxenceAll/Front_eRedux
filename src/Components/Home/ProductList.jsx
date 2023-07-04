@@ -26,7 +26,7 @@ function ProductList( {products}) {
         <STYLEDContainer>
             <STYLEDContainerBox>
                 <DIV_Home_Container>
-                    <div>
+                    <div style={{textAlign:"start"}}>
                         <h2>Catégories:</h2>
                         <div>
                             <input

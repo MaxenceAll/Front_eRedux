@@ -1,49 +1,26 @@
 import { styled } from "styled-components";
-import { FaCartShopping, FaBagShopping } from "react-icons/fa6";
-import { HiUser, HiUserAdd } from "react-icons/hi";
-import SearchBar from "./Header/SearchBar";
+import { FaCartShopping } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
-import { CartContext } from "../Contexts/CartContext";
+import LoginRegisterButtons from "./Header/LoginRegisterButtons";
 import { useContext } from "react";
+import { AuthContext } from "../Contexts/AuthContext";
+import SearchBar from "./Header/SearchBar";
+import CartHeader from "./Header/CartHeader";
+import LogoutButton from "./Header/LogoutButton";
 
 function Header() {
-
-    const { getTotalItemCount } = useContext(CartContext);
-
+    const { isLoggedIn} = useContext(AuthContext);
     return (
         <DIV_Header_Container>
-            <div>
-                <SPAN_NomApp>
-                    <NavLink to="/">
-                        <FaCartShopping />
-                        E-Redux
-                    </NavLink>
-                </SPAN_NomApp>
-            </div>
-            <DIV_NavBarContainer>
-                <NavLink to="/login" className={({ isActive }) => isActive ? "active-link" : null}>
-                    <DIV_HeaderLinkIcon>
-                        <HiUser />
-                    </DIV_HeaderLinkIcon>
-                    Login
+            <SPAN_NomApp>
+                <NavLink to="/">
+                    <FaCartShopping />
+                    E-Redux
                 </NavLink>
-                <NavLink to="/register" className={({ isActive }) => isActive ? "active-link" : null}>
-                    <DIV_HeaderLinkIcon>
-                        <HiUserAdd />
-                    </DIV_HeaderLinkIcon>
-                    Register
-                </NavLink>
-                <span>
-                    <SearchBar />
-                </span>
-                <NavLink to="/cart" className={({ isActive }) => isActive ? "active-link" : null}>
-                    <DIV_HeaderLinkIcon>
-                        <FaBagShopping />
-                    </DIV_HeaderLinkIcon>
-                    <SPAN_CartItemCount>{getTotalItemCount()}</SPAN_CartItemCount>
-                </NavLink>                
-
-            </DIV_NavBarContainer>
+            </SPAN_NomApp>
+            {!isLoggedIn ? <LoginRegisterButtons /> : <LogoutButton />}
+            <SearchBar />
+            <CartHeader />
         </DIV_Header_Container>
     )
 }
@@ -74,30 +51,4 @@ const SPAN_NomApp = styled.span`
     font-weight: 700;
     color: red;
     font-style: bold;
-`;
-
-const DIV_NavBarContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 30%;
-    font-size: 1.2rem;
-    color: black;
-    gap: 10px;
-`;
-
-const DIV_HeaderLinkIcon = styled.div`
-  text-align: center;
-    font-size: 1.5rem;
-`;
-
-const SPAN_CartItemCount = styled.span`
-  position: relative;
-  top: -8px;
-  font-size: 1rem;
-  font-weight: bold;
-  background-color: green;
-  color: white;
-  border-radius: 50%;
-  padding: 2px 5px;
 `;

@@ -27,7 +27,6 @@ function Home() {
   }, []);
 
   return (<>
-    <div>Ici la home page</div>
     <ProductList products={products} />
   </>);
 }

@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { toast } from "react-toastify";
-import { STYLEDContainer, STYLEDContainerBox } from "../Styles/genericContainer";
-import Loader from "../Components/Tools/Loader";
+import { AuthContext } from "../Contexts/AuthContext";
 
 export default function PrivateRoutes({ children, ...rest }) {
 
-  const [auth, setAuth] = useState(false);
+  const { isLoggedIn } = useContext(AuthContext);
 
-  if (!auth) {
+  if (!isLoggedIn) {
     toast.warning("Il faut être identifié pour accèder à cette page !");
     return <Navigate key="login" to="/login" />;
   }

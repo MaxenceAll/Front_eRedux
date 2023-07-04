@@ -6,6 +6,7 @@ import { styled } from 'styled-components';
 import { STYLEDButton } from '../../Styles/genericButton';
 import { MdOutlineRemoveCircleOutline } from "react-icons/md";
 import { toast } from 'react-toastify';
+import { NavLink } from 'react-router-dom';
 
 function CartElements() {
     const { cart, removeFromCart, updateCartItemQuantity, getTotalItemCount, increaseQuantity, decreaseQuantity } = useContext(CartContext);
@@ -108,7 +109,9 @@ function CartElements() {
                             </tr>
                         </tbody>
                     </table>
-                    <STYLEDButton style={{ backgroundColor: "green" }}>Commander</STYLEDButton>
+                    <NavLink to="/payout">                        
+                        <STYLEDButton style={{ backgroundColor: "green" }}>Commander</STYLEDButton>
+                    </NavLink>
                 </DIV_Payout_Container>
             </DIV_ContainerBox>
         </STYLEDContainer>

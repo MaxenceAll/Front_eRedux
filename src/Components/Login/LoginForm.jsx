@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useFormik } from 'formik';
 import styled from 'styled-components';
 import { VscAccount } from "react-icons/vsc";
@@ -10,13 +10,13 @@ import { STYLEDContainer, STYLEDContainerBox } from '../../Styles/genericContain
 
 import fetcher from '../../Helpers/fetcher';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../../Contexts/AuthContext';
 
 
 // LoginForm component
 const LoginForm = () => {
 
-    const [response, setResponse] = useState(null); // State to store the API response
-    console.log(response);
+    const { login } = useContext(AuthContext);
 
     const formik = useFormik({
         initialValues: {
@@ -25,7 +25,6 @@ const LoginForm = () => {
         },
         validate: values => {
             const errors = {};
-
             if (!values.email) {
                 errors.email = 'Il faut saisir une adresse mail enfin !';
             } else if (
@@ -33,23 +32,23 @@ const LoginForm = () => {
             ) {
                 errors.email = 'Cela ne ressemble pas à une adresse mail valide !';
             }
-
             if (!values.password) {
                 errors.password = 'Il faut saisir un mot de passe enfin !';
             }
-
             return errors;
         },
-        onSubmit: async(values) => {
-            // ICI on récup les valeurs du formulaire
-            console.log(values);
+        onSubmit: async (values) => {
             try {
                 const resp = await fetcher.post(`/api/v1/auth/login`, values);
-                setResponse(resp); // Store the API response in the state
-                console.log(resp); // Log the response
+                if (resp.result) {
+                    toast.success('Vous êtes connecté');
+                    login(resp.access_token, resp.email);
+                } else {
+                    toast.error(`Une erreur est survenue lors de la connexion : ${resp.error} (${resp.message}))`);
+                }
             } catch (error) {
                 console.log(error);
-                toast.error('Une erreur est survenue lors de la connexion');
+                toast.error(`Une erreur est survenue lors de la création de votre compte : ${resp.error} (${resp.message}))`);
             }
         },
     });
@@ -84,7 +83,7 @@ const LoginForm = () => {
                     {formik.touched.password && formik.errors.password && (
                         <STYLEDErrorMessage>{formik.errors.password}</STYLEDErrorMessage>
                     )}
-                    <STYLEDButton   type="submit">Se connecter</STYLEDButton>
+                    <STYLEDButton type="submit">Se connecter</STYLEDButton>
                 </STYLEDForm>
             </STYLEDContainerBox>
         </STYLEDContainer>
